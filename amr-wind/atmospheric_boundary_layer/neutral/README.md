@@ -1,1 +1,1 @@
-Put a synopsis of the case here, including which resources were used, which hashes of the codes, and a brief description of the computational performance.
+The neutral ABL case was run to convergence with the input file that was used in the upcoming AMR-Wind paper. The computation was done on kestrel, using 20 CPU nodes for 144 hours, with the latest release of AMR-Wind `(v 3.15)`.
