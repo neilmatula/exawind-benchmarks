@@ -7,4 +7,4 @@ These benchmark cases use IDDES for turbulence modeling, and they simulate flow 
 The Nalu-Wind hash used was 4faf299. Every case was run on Kestrel for at least 100 iterations to confirm input-file compatibility and provide profiling information in the log file footer. The 30 degree case was run with different numbers of nodes to establish scaling behavior, and the 45 degree case was run for 8000 steps to output force and moment results.
 
 These cases correspond to the following publication:
-Bidadi, S.; Vijayakumar, G.; Deskos, G.; Sprague, M. Three-Dimensional Aerodynamics and Vortex-Shedding Characteristics of Wind Turbine Airfoils over 360-Degree Angles of Attack. Energies 2024, 17, 4328. https://doi.org/10.3390/en17174328 
+Bidadi, S.; Vijayakumar, G.; Sharma, A.; Sprague, M.A. Mesh and model requirements for capturing deep-stall aerodynamics in low-Mach-number flows. J. Turbul. 2023, 24, 393–418.
