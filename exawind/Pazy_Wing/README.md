@@ -28,12 +28,24 @@ The geometry and flow conditions of the Pazy Wing case are defined in Avin et al
 
 Note that the wind-tunnel model given in [1] has several small unintentional features, including varying airfoil thickness along the span, sag in the flap-wise direction, and twist (about 1 degree).  It is assumed here that these features have a negligible impact on the FSI results, and an idealized version of the wing is used instead, with a uniform cross-section along the span.
 
+**Domain Overview**
+
+<img src="Figures/Pazy_Overview_Fig_550.png" border="0" alt=""/>
+
+The CFD computational domain consists of an inner Nalu-Wind domain immediately surrounding the wing, and an outer AMR-Wind domain to allow space for the wake to propagate.  The sides, ceiling, and floor of the AMR-Wind domain are intended to approximate the effect of the wind tunnel walls used in the experiment.  However, to avoid the computational expense of resolving the boundary layers near the tunnel walls, *slip wall* boundaries are used there.  The Nalu-Wind domain extends a few chord-lengths away from the wing, and terminates with an *overset* boundary on the exterior, and a *slip wall* on the portion that touches the bottom wind tunnel boundary.  The inner boundary of the Nalu-Wind domain represents the wing surface, and uses a *no-slip wall* boundary condition.
+
+In the experiment, the blade tip passes near the wind-tunnel walls at peak deflection.  Since the Nalu-Wind domain extends several chord lengths away from the wing, the AMR-Wind domain was chosen to be somewhat larger than the wind tunnel in order to avoid collisions of the overset boundary with the slip wall at peak deflection, and additional padding was provided to ensure the results are not contaminated by the effect of the artificial slip wall boundaries.  Future studies are planned to investigate the impact of the choice of AMR-Wind domain size on the simulation results.
+
+
+
 **Code Versions**
 
+While we expect that using the current release of each code will produce comparable results, the specific versions of each code that were used to generate the results in this document are given below for completeness.
+
 - ExaWind driver: [``a38a4d5f96e4d3b42b52f41280e2d8d28c57ef25``]( https://github.com/Exawind/exawind-driver/commit/a38a4d5f96e4d3b42b52f41280e2d8d28c57ef25)
-- Nalu-Wind:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  [``f3cecafbdc05e61d0550ff41a30307425ef8197b``](https://github.com/Exawind/nalu-wind/commit/f3cecafbdc05e61d0550ff41a30307425ef8197b)
-- AMR-Wind:   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [``8bad127f62cf2fd2f0d0ae16f2df47fdd0d069f8``]( https://github.com/Exawind/amr-wind/commit/8bad127f62cf2fd2f0d0ae16f2df47fdd0d069f8) 
-- OpenFAST: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[``024dbc1816ca8caeefcc720b1099397730b1ec0a``](https://github.com/Exawind/amr-wind/commit/8bad127f62cf2fd2f0d0ae16f2df47fdd0d069f8)
+- Nalu-Wind:  &ensp;&ensp;&nbsp;&nbsp;&nbsp;  [``f3cecafbdc05e61d0550ff41a30307425ef8197b``](https://github.com/Exawind/nalu-wind/commit/f3cecafbdc05e61d0550ff41a30307425ef8197b)
+- AMR-Wind:   &ensp;&emsp;&nbsp; [``8bad127f62cf2fd2f0d0ae16f2df47fdd0d069f8``]( https://github.com/Exawind/amr-wind/commit/8bad127f62cf2fd2f0d0ae16f2df47fdd0d069f8) 
+- OpenFAST: &ensp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[``024dbc1816ca8caeefcc720b1099397730b1ec0a``](https://github.com/Exawind/amr-wind/commit/8bad127f62cf2fd2f0d0ae16f2df47fdd0d069f8)
 
 
 
