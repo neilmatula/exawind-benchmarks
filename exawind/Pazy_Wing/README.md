@@ -13,18 +13,18 @@ This benchmark contains a blade-resolved model of the Pazy Wing [1] aeroelastic 
 
 The geometry and flow conditions of the Pazy Wing case are defined in Avin et al. [1]  They are summarized in the following table.
 
-| Case Property | Value |
-| :---              | ---   |
-| Span    | 0.55 m |
-| Chord        | 0.10 m |
-| Airfoil      | NACA0018  |
-| Angle of Attack   | 3-7 deg |
-| Density | 1.225 kg/m<sup>3</sup> |
-| Dynamic Viscosity | 1.88E-05 Pa-s |
-| Velocity | 15-50 m/s |
-| Mach Number | 0.04-0.15 |
-| Reynolds Number | < 3.4E+05 |
-| Turbulence Level | 0.5% |
+| Case Property     | Value                  |
+| :---              | ---                    |
+| Span              | 0.55 m                 |
+| Chord             | 0.10 m                 |
+| Airfoil           | NACA0018               |
+| Angle of Attack   | 3-7 deg                |
+| Density           | 1.225 kg/m<sup>3</sup> |
+| Dynamic Viscosity | 1.88E-05 Pa-s          |
+| Velocity          | 15-50 m/s              |
+| Mach Number       | 0.04-0.15              |
+| Reynolds Number   | < 3.4E+05              |
+| Turbulence Level  | 0.5%                   |
 
 Note that the wind-tunnel model given in [1] has several small unintentional features, including varying airfoil thickness along the span, sag in the flap-wise direction, and twist (about 1 degree).  It is assumed here that these features have a negligible impact on the FSI results, and an idealized version of the wing is used instead, with a uniform cross-section along the span.
 
