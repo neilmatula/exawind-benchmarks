@@ -67,7 +67,7 @@ For wind velocities below the flutter onset boundary, the wing deformation appro
 <img src="Figures/combined.png" border="0" alt="" width="200" />
 --->
 
-<img src="Figures/combined.png" border="0" alt="" width="1000"/>
+<img src="Figures/combined.png" border="0" alt=""/>
 
 
 <!---
