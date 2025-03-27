@@ -36,7 +36,9 @@ The CFD computational domain consists of an inner Nalu-Wind domain immediately s
 
 In the experiment, the blade tip passes near the wind-tunnel walls at peak deflection.  Since the Nalu-Wind domain extends several chord lengths away from the wing, the AMR-Wind domain was chosen to be somewhat larger than the wind tunnel in order to avoid collisions of the overset boundary with the slip wall at peak deflection, and additional padding was provided to ensure the results are not contaminated by the effect of the artificial slip wall boundaries.  Future studies are planned to investigate the impact of the choice of AMR-Wind domain size on the simulation results.
 
+**Grid Generation**
 
+<img src="Figures/mesh_overview_200.png" border="0" alt=""/>
 
 **Code Versions**
 
@@ -63,28 +65,17 @@ While we expect that using the current release of each code will produce compara
 For wind velocities below the flutter onset boundary, the wing deformation approaches a steady state after the initial oscillatory transients decay.  The final tip deflection is a function of the freestream velocity and the root angle of attack.  Comparison data is available for three angles of attack (3, 5 and 7 degrees), and wind speeds between 15 m/s and the flutter onset speed, which depends on the angle of attack.  For each AoA, comparisons are shown below.  The two black curves are experimental data from [1].  The solid black curve is from a sweep of dynamic pressure (while holding AoA constant), and the dashed black curve is from a sweep of AoA (while holding dynamic pressure constant).  The solid black line is used as the reference for comparison in [2], and we likewise treat it as the more reliable of the two experimental data sets.  The grey band indicates the spread in computational comparison data given in [2].
 
 
-<!---
-<img src="Figures/combined.png" border="0" alt="" width="200" />
---->
 
 <img src="Figures/combined.png" border="0" alt=""/>
 
 
-<!---
-### AoA = 5 degrees
 
-<img src="Figures/aoa5nt.png" border="0" alt="Boy howdy" style="width:100px fig_caption=true;"/>
-
-### AoA = 7 degrees
-
-<img src="Figures/aoa7nt.png" border="0" alt="Boy howdy" style="width:100px fig_caption=true;"/>
---->
 
 **Flutter Results**
 
 For wind velocities above the flutter onset boundary, the wing deformation initially behaves in a similar way to the pre-flutter cases above.  However, the oscillatory transients do not decay, but instead continually grow until solver failure is reached.  The quantity of interest is the flutter onset velocity.  The results are shown below.  The next section explains how the flutter onset boundary is determined.
 
-<img src="Figures/flut.png" border="0" alt="Boy howdy" style="width:100px fig_caption=true;"/>
+<img src="Figures/flut_figs_300.png" border="0" alt=""/>
 
 
 **Determination of Flutter Onset Boundary**
@@ -96,7 +87,7 @@ For wind speeds in the neighborhood of the flutter boundary, three possible beha
 
 These three behaviors are demonstrated in the plot below.  For these results, we are interested in bracketing the flutter onset boundary; that is, for a given root AoA, we perform simulations at multiple velocities in the neighborhood of the flutter onset boundary, and determine two speeds that may be clearly classified as "stable" and "flutter", respectively.  We aim to bracket the flutter onset speed in this manner within 10% of the experimental value.
 
-<img src="Figures/fluthis.png" border="0" alt="Boy howdy" style="width:100px fig_caption=true;"/>
+
 
 
 [1]: Avin, Or,  et al. "Experimental aeroelastic benchmark of a very flexible wing." AIAA Journal 60.3 (2022): 1745-1768.
