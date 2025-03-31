@@ -44,10 +44,10 @@ In the experiment, the blade tip passes near the wind-tunnel walls at peak defle
 
 While we expect that using the current release of each code will produce comparable results, the specific versions of each code that were used to generate the results in this document are given below for completeness.
 
-- ExaWind driver: [``a38a4d5f96e4d3b42b52f41280e2d8d28c57ef25``]( https://github.com/Exawind/exawind-driver/commit/a38a4d5f96e4d3b42b52f41280e2d8d28c57ef25)
-- Nalu-Wind:  &ensp;&ensp;&nbsp;&nbsp;&nbsp;  [``f3cecafbdc05e61d0550ff41a30307425ef8197b``](https://github.com/Exawind/nalu-wind/commit/f3cecafbdc05e61d0550ff41a30307425ef8197b)
-- AMR-Wind:   &ensp;&emsp;&nbsp; [``8bad127f62cf2fd2f0d0ae16f2df47fdd0d069f8``]( https://github.com/Exawind/amr-wind/commit/8bad127f62cf2fd2f0d0ae16f2df47fdd0d069f8) 
-- OpenFAST: &ensp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[``024dbc1816ca8caeefcc720b1099397730b1ec0a``](https://github.com/Exawind/amr-wind/commit/8bad127f62cf2fd2f0d0ae16f2df47fdd0d069f8)
+- ExaWind driver: [``046b080c7e0f0ab1efea0dccb4f798fe84ef905e``]( https://github.com/Exawind/exawind-driver/commit/046b080c7e0f0ab1efea0dccb4f798fe84ef905e)
+- Nalu-Wind:  &ensp;&ensp;&nbsp;&nbsp;&nbsp;  [``b9e4ae654b646ecd0501dd6391dc7537239c82db``](https://github.com/Exawind/nalu-wind/commit/b9e4ae654b646ecd0501dd6391dc7537239c82db)
+- AMR-Wind:   &ensp;&emsp;&nbsp; [``b61c01895e8eab388e4a3fd129e1db0f4fd0f534``]( https://github.com/Exawind/amr-wind/commit/b61c01895e8eab388e4a3fd129e1db0f4fd0f534) 
+- OpenFAST: &ensp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[``024dbc1816ca8caeefcc720b1099397730b1ec0a``](https://github.com/Exawind/amr-wind/commit/024dbc1816ca8caeefcc720b1099397730b1ec0a)
 
 
 
