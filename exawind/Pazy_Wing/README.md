@@ -88,7 +88,7 @@ For wind speeds in the neighborhood of the flutter boundary, three possible beha
 These three behaviors are demonstrated in the plot below.  For these results, we are interested in bracketing the flutter onset boundary; that is, for a given root AoA, we perform simulations at multiple velocities in the neighborhood of the flutter onset boundary, and determine two speeds that may be clearly classified as "stable" and "flutter", respectively.  We aim to bracket the flutter onset speed in this manner within 10% of the experimental value.
 
 
-
+**References**
 
 [1]: Avin, Or,  et al. "Experimental aeroelastic benchmark of a very flexible wing." AIAA Journal 60.3 (2022): 1745-1768.
 
