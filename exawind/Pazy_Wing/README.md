@@ -75,7 +75,7 @@ For wind velocities below the flutter onset boundary, the wing deformation appro
 
 For wind velocities above the flutter onset boundary, the wing deformation initially behaves in a similar way to the pre-flutter cases above.  However, the oscillatory transients do not decay, but instead continually grow until solver failure is reached.  The quantity of interest is the flutter onset velocity.  The results are shown below.  The next section explains how the flutter onset boundary is determined.
 
-<img src="Figures/flut_figs_300.png" border="0" alt=""/>
+<img src="Figures/flut_figs_350.png" border="0" alt="" width="900"/>
 
 
 **Determination of Flutter Onset Boundary**
