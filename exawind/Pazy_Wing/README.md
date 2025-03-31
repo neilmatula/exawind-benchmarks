@@ -38,7 +38,16 @@ In the experiment, the blade tip passes near the wind-tunnel walls at peak defle
 
 **Grid Generation**
 
-<img src="Figures/mesh_overview_200.png" border="0" alt=""/>
+<img src="Figures/mesh_overview_100.png" border="0" alt=""/>
+
+**Setup**
+
+The repository may be cloned by using the following syntax:
+
+Once the repository has been cloned, navigate to the Pazy-Wing directory:
+
+Modify the "loadmod" script to point to your ExaWind installation.  We assume here that you are using Exawind-Manager.
+
 
 **Code Versions**
 
@@ -53,7 +62,20 @@ While we expect that using the current release of each code will produce compara
 
 ## Postprocessing
 
+The output files
+
 ## Code Performance
+
+For these simulations, 90% of the cores were allocated to Nalu-Wind, and the remainder to AMR-Wind.  However, the timings indicated that adding yet more cores to Nalu-Wind would yield a speed improvement in this case.  Future studies are planned to determine the optimal resource balance.
+
+| Property              | Value                  |
+| :---                  | ---                    |
+| Wall-Clock Time       | 48 hours               |
+| Simulated Time        | 2.09 seconds           |
+| Number of Timesteps   | 34,380                 |
+| Number of CPUs        | NACA0018               |
+| Number of HPC Nodes   | 5                      |
+| Nalu Cells per CPU    | ~15,600                |
 
 ## Results
 
@@ -62,20 +84,24 @@ While we expect that using the current release of each code will produce compara
 
 **Static Deflection Results**
 
+<img src="Figures/combined.png" border="0" alt=""/>
+
 For wind velocities below the flutter onset boundary, the wing deformation approaches a steady state after the initial oscillatory transients decay.  The final tip deflection is a function of the freestream velocity and the root angle of attack.  Comparison data is available for three angles of attack (3, 5 and 7 degrees), and wind speeds between 15 m/s and the flutter onset speed, which depends on the angle of attack.  For each AoA, comparisons are shown below.  The two black curves are experimental data from [1].  The solid black curve is from a sweep of dynamic pressure (while holding AoA constant), and the dashed black curve is from a sweep of AoA (while holding dynamic pressure constant).  The solid black line is used as the reference for comparison in [2], and we likewise treat it as the more reliable of the two experimental data sets.  The grey band indicates the spread in computational comparison data given in [2].
 
 
 
-<img src="Figures/combined.png" border="0" alt=""/>
+
 
 
 
 
 **Flutter Results**
 
-For wind velocities above the flutter onset boundary, the wing deformation initially behaves in a similar way to the pre-flutter cases above.  However, the oscillatory transients do not decay, but instead continually grow until solver failure is reached.  The quantity of interest is the flutter onset velocity.  The results are shown below.  The next section explains how the flutter onset boundary is determined.
-
 <img src="Figures/flut_figs_350.png" border="0" alt="" width="900"/>
+
+For wind velocities above the flutter onset boundary, the wing deformation initially behaves in a similar way to the pre-flutter cases above.  However, the oscillatory transients do not decay, but instead continually grow until solver failure is reached.  The quantity of interest is the flutter onset velocity.  The results are shown in the left figure above.  The grey band indicates the set of AoA and wind speed values that produced flutter in the experiment [1].  The green range indicates the spread in predictions for the onset speed from the workshop [2].  The blue symbols indicate the results of ExaWind simulations that bracket the flutter onset boundary. The next section explains how these brackets should be interpreted.
+
+
 
 
 **Determination of Flutter Onset Boundary**
@@ -85,7 +111,7 @@ For wind speeds in the neighborhood of the flutter boundary, three possible beha
 - The oscillations do not decay, but also do not grow without bound.  We term this behavior "unstable".
 - The oscillations continue to grow without bound, leading to solver failure.  We term this behavior "flutter".
 
-These three behaviors are demonstrated in the plot below.  For these results, we are interested in bracketing the flutter onset boundary; that is, for a given root AoA, we perform simulations at multiple velocities in the neighborhood of the flutter onset boundary, and determine two speeds that may be clearly classified as "stable" and "flutter", respectively.  We aim to bracket the flutter onset speed in this manner within 10% of the experimental value.
+These three behaviors are demonstrated in the right plot above.  Since the exact speed for which flutter begins is expected to be sensitive to resolution and simulation parameters, we opt instead to bracket the flutter onset boundary; that is, for a given root AoA, we perform simulations at multiple velocities in the neighborhood of the flutter onset boundary, and determine two speeds that may be clearly classified as "stable" and "flutter", respectively.  We aim to bracket the flutter onset speed in this manner within 10% of the experimental value.  The left figure above indicates we are predicting the onset speed within this tolerance.
 
 
 **References**
