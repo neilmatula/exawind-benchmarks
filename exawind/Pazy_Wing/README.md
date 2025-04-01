@@ -20,7 +20,7 @@ The geometry and flow conditions of the Pazy Wing case are defined in Avin et al
 | Airfoil           | NACA0018               |
 | Angle of Attack   | 3-7 deg                |
 | Density           | 1.225 kg/m<sup>3</sup> |
-| Dynamic Viscosity | 1.88E-05 Pa-s          |
+| Dynamic Viscosity | 1.8E-05 Pa-s          |
 | Velocity          | 15-50 m/s              |
 | Mach Number       | 0.04-0.15              |
 | Reynolds Number   | < 3.4E+05              |
