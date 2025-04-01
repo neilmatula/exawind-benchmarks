@@ -42,11 +42,60 @@ In the experiment, the blade tip passes near the wind-tunnel walls at peak defle
 
 **Setup**
 
-The repository may be cloned by using the following syntax:
+1. Clone the Exawind-Benchmarks repository by using the following syntax:
 
-Once the repository has been cloned, navigate to the Pazy-Wing directory:
+	```bash
+	$ git clone --recursive git@github.com:Exawind/exawind-benchmarks.git
+	```
+2. Once the repository has been cloned, navigate to the Pazy-Wing directory:
 
-Modify the "loadmod" script to point to your ExaWind installation.  We assume here that you are using Exawind-Manager.
+	```bash
+   $ cd exawind-benchmarks/exawind/Pazy_Wing
+   ```
+3. Modify the "loadmod.sh" script to point to your ExaWind installation.  We assume here that you are using Exawind-Manager.
+
+   ```bash
+   manloc=/gpfs/nmatula/not/pazy2ecl/exawind-manager
+   envnam=pazy
+   ```
+
+   Here, `manloc` refers to the `exawind-manager` directory location, and `envname` refers to the name of the `exawind-manager` environment you will be using.
+
+5. Modify the header of the `setup.sh` script to reflect the case conditions you wish to simulate.  An example header is shown below:
+
+   ```bash
+   aoa=93
+   windspeed=30
+   dtshort=0.00002
+   dtlong=0.00006
+   density=1.225
+   visc=0.000018
+   tkein=1.0
+   sdrin=250.0
+   amrnx=128
+   cfdplotinterval=1000
+   cfdcheckpointinterval=10000
+   ```
+
+   Variable description:
+   - `aoa` - The angle of attack, given in degrees.  Since the nominal position of the wing is with the leading edge perpindicular to the incoming flow (per OpenFAST conventions), `aoa` should be set 90 degrees higher than the true angle of attack.  The angles of attack used in the experiment are 3, 5, and 7 degrees, so the corresponding values of `aoa` are 93, 95, and 97 degrees.
+   - `windspeed` - The freestream wind velocity, given in meters per second.
+   - `dtshort` - The structural timestep, in seconds.
+   - `dtlong` - The CFD and driver timestep, in seconds.  This should be an integer multiple of `dtshort`.
+   - `density` - The freestream air density, in kg/m^3.
+   - `visc` - The freestream air dynamic viscosity, in Pa-s.
+   - `tkein` and `sdrin` - The freestream turbulence model parameters.
+   - `amrnx` - The number of elements in the x and y directions of the base AMR-Wind grid.
+   - `cfdplotinterval` - The number of timesteps that pass in between plot file output.
+   - `cfdcheckpointinterval` - The number of timesteps that pass in between checkpoint file output.
+
+   If the user wishes to reproduce the benchmark results, only `aoa` and `windspeed` need to be modified.
+
+6. Modify the slurm script (`base/template/run`) as needed for your HPC machine.
+
+7. Run the `setup.sh` script.  This will copy the simulation input files from `base` and substitute in the simulation parameters you added to the header using `aprepro`.  The resulting files will be placed in a directory titled `a#v#`, where the first number indicates the value of `aoa`, and the second indicates the value of `windspeed`.  This is done to facilitate parameter sweeps.
+
+8. Navigate to the simulation directory you just created, and submit the slurm script.
 
 
 **Code Versions**
@@ -86,7 +135,7 @@ For these simulations, 90% of the cores were allocated to Nalu-Wind, and the rem
 
 <img src="Figures/combined.png" border="0" alt=""/>
 
-For wind velocities below the flutter onset boundary, the wing deformation approaches a steady state after the initial oscillatory transients decay.  The final tip deflection is a function of the freestream velocity and the root angle of attack.  Comparison data is available for three angles of attack (3, 5 and 7 degrees), and wind speeds between 15 m/s and the flutter onset speed, which depends on the angle of attack.  For each AoA, comparisons are shown below.  The two black curves are experimental data from [1].  The solid black curve is from a sweep of dynamic pressure (while holding AoA constant), and the dashed black curve is from a sweep of AoA (while holding dynamic pressure constant).  The solid black line is used as the reference for comparison in [2], and we likewise treat it as the more reliable of the two experimental data sets.  The grey band indicates the spread in computational comparison data given in [2].
+For wind velocities below the flutter onset boundary, the wing deformation approaches a steady state after the initial oscillatory transients decay.  The final tip deflection is a function of the freestream velocity and the root angle of attack.  Comparison data is available for three angles of attack (3, 5 and 7 degrees), and wind speeds between 15 m/s and the flutter onset speed, which depends on the angle of attack.  For each AoA, comparisons are shown above.  The two black curves are experimental data from [1].  The solid black curve is from a sweep of dynamic pressure (while holding AoA constant), and the dashed black curve is from a sweep of AoA (while holding dynamic pressure constant).  The solid black line is used as the reference for comparison in [2], and we likewise treat it as the more reliable of the two experimental data sets.  The grey band indicates the spread in computational comparison data given in [2].
 
 
 
