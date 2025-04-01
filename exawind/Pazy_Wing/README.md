@@ -55,7 +55,7 @@ In the experiment, the blade tip passes near the wind-tunnel walls at peak defle
 3. Modify the "loadmod.sh" script to point to your ExaWind installation.  We assume here that you are using Exawind-Manager.
 
    ```bash
-   manloc=/gpfs/nmatula/not/pazy2ecl/exawind-manager
+   manloc=the/location/of/your/build/exawind-manager
    envnam=pazy
    ```
 
