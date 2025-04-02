@@ -1,8 +1,5 @@
 import matplotlib.pyplot as plt
-#import pandas as pd
 import numpy as np
-#import scipy.signal as ss
-#import scipy.fftpack
 
 icase = 0
 whichblade = 1

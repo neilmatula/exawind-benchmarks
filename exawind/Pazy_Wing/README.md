@@ -30,7 +30,7 @@ Note that the wind-tunnel model given in [1] has several small unintentional fea
 
 **Domain Overview**
 
-<img src="Figures/Pazy_Overview_Fig_550.png" border="0" alt=""/>
+<img src="figures/Pazy_Overview_Fig_550.png" border="0" alt=""/>
 
 The CFD computational domain consists of an inner Nalu-Wind domain immediately surrounding the wing, and an outer AMR-Wind domain to allow space for the wake to propagate.  The sides, ceiling, and floor of the AMR-Wind domain are intended to approximate the effect of the wind tunnel walls used in the experiment.  However, to avoid the computational expense of resolving the boundary layers near the tunnel walls, *slip wall* boundaries are used there.  The Nalu-Wind domain extends a few chord-lengths away from the wing, and terminates with an *overset* boundary on the exterior, and a *slip wall* on the portion that touches the bottom wind tunnel boundary.  The inner boundary of the Nalu-Wind domain represents the wing surface, and uses a *no-slip wall* boundary condition.
 
@@ -38,17 +38,17 @@ In the experiment, the blade tip passes near the wind-tunnel walls at peak defle
 
 **Grid Generation**
 
-<img src="Figures/mesh_overview_100.png" border="0" alt=""/>
+<img src="figures/mesh_overview_100.png" border="0" alt=""/>
 
 The Nalu-Wind grid was generated using Pointwise, and a cut-away view is shown in the left figure above.  The wing tip surface grid used an O-grid surrounding an H-grid, to which elliptic smoothing was applied.  The outer boundary of this wing tip grid was extruded to yield the complete surface mesh, shown in red above.  Finally, the volume mesh was created through hyperbolic extrusion of the surface mesh.  The grid for AMR-Wind was generated using its internal grid generator, and has one refinement region in the interior, centered around the wing.  This grid is shown in the right figure above.  Metrics for these grids are given in the table below.
 
-| Nalu-Wind Grid Property         | Value                  |   | AMR-Wind Grid Property   | Value                  |
-| :---                            | ---                    | - | :---                     | ---                    |
-| Number of cells                 | 0.55 m                 |   | Domain size              | 0.55 m                 |
-| First cell height               |                        |   | Level 0 dimensions       |                        |
-| First cell y+                   |                        |   | Number of cells          |                        |
-| Cells around airfoil            |                        |   | Level 0 spacing          |                        |
-| Number of spanwise layers       |                        |   | Level 1 spacing          |                        |
+| Nalu-Wind Grid Property         | Value                     |   | AMR-Wind Grid Property   | Value                  |
+| :---                            | ---                       | - | :---                     | ---                    |
+| Number of cells                 | 8,736,600                 |   | Domain size              | 3 m x 3 m x 1.5 m      |
+| First cell height               | 1.0E-06 m                 |   | Level 0 dimensions       | 128 x 128 x 64         |
+| First cell y+                   | 0.2                       |   | Number of cells          | 5,767,168              |
+| Cells around airfoil            | 500                       |   | Level 0 spacing          | ~0.024 m               |
+| Number of spanwise layers       | 100                       |   | Level 1 spacing          | ~0.012 m               |
 
 **Setup**
 
@@ -120,9 +120,11 @@ While we expect that using the current release of each code will produce compara
 
 ## Postprocessing
 
-The primary QoI is wing tip deflection, which is recorded by the quantity `TODO` in the OpenFAST output file `pazy.out`.  The `post.sh` script will duplicate this output file, remove its header, and run the `post.py` python script.  This will yield a plot of the tip deflection history, together with an average value for the tip deflection.
+The primary QoI is wing tip deflection, which is recorded in the OpenFAST output file `pazy.out`.  The `post.sh` script will duplicate this output file, remove its header, and run the `post.py` python script.  This will yield a plot of the tip deflection history, together with an average value for the tip deflection.
 
-For the static deflection (low speed) cases, this final tip deflection may be assembled into the file `todo`.
+The files need to reproduce the plots in this document may be found in the `plotting` directory.  For the static deflection (low speed) cases, the final tip deflection (from the `post.py` script mentioned above) may be assembled for several windspeeds and angles of attack into the files `nalu3.dat`, `nalu5.dat`, and `nalu7.dat`.  The quantity in the first column is the wind speed, and the quantity in the second column is the tip deflection (in meters).  Running `python3 plot3.py` will reproduce the AoA=3 figure below, and the other figures may be obtained likewise.
+
+The `plotting` directory also contains the files needed to reproduce the flutter boundary figure.  For this, you will need to do a parameter sweep (the `setup.sh` script will help with this), and run cases for several windspeeds near the flutter onset speed for each AoA (3, 5, and 7 degrees).  From the deflection history (obtained from the `post.py` script), one can determine whether each case meets the criteria for "stable", "unstable", or "flutter", as discussed in the results section below.  These speeds can be added to the files `nalustable.dat`, `naluunstable.dat`, and `naluflut.dat`.  Then, the figure may be reproduced by running `python3 plotflut.py`.
 
 ## Code Performance
 
@@ -141,13 +143,13 @@ For these simulations, 90% of the cores were allocated to Nalu-Wind, and the rem
 
 **Static Deflection Results**
 
-<img src="Figures/combined.png" border="0" alt=""/>
+<img src="figures/combined.png" border="0" alt=""/>
 
 For wind velocities below the flutter onset boundary, the wing deformation approaches a steady state after the initial oscillatory transients decay.  The final tip deflection is a function of the freestream velocity and the root angle of attack.  Comparison data is available for three angles of attack (3, 5 and 7 degrees), and wind speeds between 15 m/s and the flutter onset speed, which depends on the angle of attack.  For each AoA, comparisons are shown above.  The two black curves are experimental data from [1].  The solid black curve is from a sweep of dynamic pressure (while holding AoA constant), and the dashed black curve is from a sweep of AoA (while holding dynamic pressure constant).  The solid black line is used as the reference for comparison in [2], and we likewise treat it as the more reliable of the two experimental data sets.  The grey band indicates the spread in computational comparison data given in [2].
 
 **Flutter Results**
 
-<img src="Figures/flut_figs_350.png" border="0" alt="" width="900"/>
+<img src="figures/flut_figs_350.png" border="0" alt="" width="900"/>
 
 For wind velocities above the flutter onset boundary, the wing deformation initially behaves in a similar way to the pre-flutter cases above.  However, the oscillatory transients do not decay, but instead continually grow until solver failure is reached.  The quantity of interest is the flutter onset velocity.  The results are shown in the left figure above.  The grey band indicates the set of AoA and wind speed values that produced flutter in the experiment [1].  The green range indicates the spread in predictions for the onset speed from the workshop [2].  The blue symbols indicate the results of ExaWind simulations that bracket the flutter onset boundary. The next section explains how these brackets should be interpreted.
 
