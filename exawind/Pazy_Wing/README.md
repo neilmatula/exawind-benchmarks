@@ -139,6 +139,14 @@ For these simulations, 90% of the cores were allocated to Nalu-Wind, and the rem
 | Number of HPC Nodes   | 5                      |
 | Nalu Cells per CPU    | ~15,600                |
 
+The job was run on the Sandia Flight HPC cluster, which has the following specifications:
+
+| Parameter           | Value |
+|---                  |---  |
+| CPU processor type  | Intel(R) Xeon(R) Platinum 8480+ |
+| CPU processor speed | 3800 Mhz |
+| Node interconnects  | Cornelis Omni-Path high-speed interconnect |
+
 ## Results
 
 **Static Deflection Results**
