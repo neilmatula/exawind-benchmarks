@@ -26,7 +26,7 @@ The geometry and flow conditions of the Pazy Wing case are defined in Avin et al
 | Reynolds Number   | < 3.4E+05              |
 | Turbulence Level  | 0.5%                   |
 
-Note that the wind-tunnel model given in [1] has several small unintentional features, including varying airfoil thickness along the span, sag in the flap-wise direction, and twist (about 1 degree).  It is assumed here that these features have a negligible impact on the FSI results, and an idealized version of the wing is used instead, with a uniform cross-section along the span.
+In the wind tunnel experiments [1], the intended geometry of the blade was a straight blade with no sweep or twist, matching the parameters in the above table.  However, the as-built wind-tunnel model had several small unintended features, including varying airfoil thickness along the span, sag in the flap-wise direction, and twist (about 1 degree).  It is assumed here that these features have a negligible impact on the FSI results, and the intended geometry is instead used, with a uniform cross section across the span.  
 
 **Domain Overview**
 
@@ -34,7 +34,9 @@ Note that the wind-tunnel model given in [1] has several small unintentional fea
 
 The CFD computational domain consists of an inner Nalu-Wind domain immediately surrounding the wing, and an outer AMR-Wind domain to allow space for the wake to propagate.  The sides, ceiling, and floor of the AMR-Wind domain are intended to approximate the effect of the wind tunnel walls used in the experiment.  However, to avoid the computational expense of resolving the boundary layers near the tunnel walls, *slip wall* boundaries are used there.  The Nalu-Wind domain extends a few chord-lengths away from the wing, and terminates with an *overset* boundary on the exterior, and a *slip wall* on the portion that touches the bottom wind tunnel boundary.  The inner boundary of the Nalu-Wind domain represents the wing surface, and uses a *no-slip wall* boundary condition.
 
-In the experiment, the blade tip passes near the wind-tunnel walls at peak deflection.  Since the Nalu-Wind domain extends several chord lengths away from the wing, the AMR-Wind domain was chosen to be somewhat larger than the wind tunnel in order to avoid collisions of the overset boundary with the slip wall at peak deflection, and additional padding was provided to ensure the results are not contaminated by the effect of the artificial slip wall boundaries.  Future studies are planned to investigate the impact of the choice of AMR-Wind domain size on the simulation results.
+In the experiment, the wing tip passes near the wind-tunnel walls at peak deflection.  Since the Nalu-Wind domain extends several chord lengths away from the wing, the AMR-Wind domain was chosen to be somewhat larger than the wind tunnel in order to avoid collisions of the overset boundary with the slip wall at peak deflection, and additional padding was provided to ensure the results are not contaminated by the effect of the artificial slip wall boundaries.  Future studies are planned to investigate the impact of the choice of AMR-Wind domain size on the simulation results.
+
+The structural deformations of the wing are modeled using the BeamDyn module of OpenFAST.  In the simulation setup used here, the aerodynamic forces calculated by Nalu-Wind are passed to OpenFAST/BeamDyn, and the deformations are passed back to Nalu-Wind.  No information is passed between OpenFAST/BeamDyn and AMR-Wind; instead, AMR-Wind communicates with Nalu-Wind through the overset boundary in the CFD domain.  (Note that this is different from some of the other benchmark cases, such as the  [``NREL5MW Actuator Line``](https://github.com/Exawind/exawind-benchmarks/tree/main/amr-wind/actuator_line/NREL5MW_ALM_BD) case.  There, AMR-Wind and BeamDyn communcate directly, and Nalu-Wind is not present.) 
 
 **Grid Generation**
 
@@ -50,6 +52,8 @@ The Nalu-Wind grid was generated using Pointwise, and a cut-away view is shown i
 | Cells around airfoil            | 500                       |   | Level 0 spacing          | ~0.024 m               |
 | Number of spanwise layers       | 100                       |   | Level 1 spacing          | ~0.012 m               |
 
+For the results shown in this documentation, the same grid was used for all wind speeds and angles of attack.  The y+ value given in the above table corresponds to the highest wind speed.
+
 **Setup**
 
 1. Clone the Exawind-Benchmarks repository by using the following syntax:
@@ -62,7 +66,7 @@ The Nalu-Wind grid was generated using Pointwise, and a cut-away view is shown i
 	```bash
    $ cd exawind-benchmarks/exawind/Pazy_Wing
    ```
-3. Modify the "loadmod.sh" script to point to your ExaWind installation.  We assume here that you are using Exawind-Manager.
+3. Modify the "loadmod.sh" script to point to your ExaWind installation.  We assume here that you are using [Exawind-Manager](https://github.com/Exawind/exawind-manager) to build your ExaWind installation.
 
    ```bash
    manloc=the/location/of/your/build/exawind-manager
@@ -116,7 +120,7 @@ While we expect that using the current release of each code will produce compara
 - ExaWind driver: [``046b080c7e0f0ab1efea0dccb4f798fe84ef905e``]( https://github.com/Exawind/exawind-driver/commit/046b080c7e0f0ab1efea0dccb4f798fe84ef905e)
 - Nalu-Wind:  &ensp;&ensp;&nbsp;&nbsp;&nbsp;  [``b9e4ae654b646ecd0501dd6391dc7537239c82db``](https://github.com/Exawind/nalu-wind/commit/b9e4ae654b646ecd0501dd6391dc7537239c82db)
 - AMR-Wind:   &ensp;&emsp;&nbsp; [``b61c01895e8eab388e4a3fd129e1db0f4fd0f534``]( https://github.com/Exawind/amr-wind/commit/b61c01895e8eab388e4a3fd129e1db0f4fd0f534) 
-- OpenFAST: &ensp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[``024dbc1816ca8caeefcc720b1099397730b1ec0a``](https://github.com/Exawind/amr-wind/commit/024dbc1816ca8caeefcc720b1099397730b1ec0a)
+- OpenFAST: &ensp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[``024dbc1816ca8caeefcc720b1099397730b1ec0a``](https://github.com/OpenFAST/openfast/commit/024dbc1816ca8caeefcc720b1099397730b1ec0a)
 
 ## Postprocessing
 
