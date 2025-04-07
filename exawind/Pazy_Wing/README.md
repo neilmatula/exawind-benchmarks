@@ -30,7 +30,7 @@ In the wind tunnel experiments [1], the intended geometry of the blade was a str
 
 **Domain Overview**
 
-<img src="figures/Pazy_Overview_Fig_550.png" border="0" alt=""/>
+![Domain Overview](figures/Pazy_Overview_Fig_550.png)
 
 The CFD computational domain consists of an inner Nalu-Wind domain immediately surrounding the wing, and an outer AMR-Wind domain to allow space for the wake to propagate.  The sides, ceiling, and floor of the AMR-Wind domain are intended to approximate the effect of the wind tunnel walls used in the experiment.  However, to avoid the computational expense of resolving the boundary layers near the tunnel walls, *slip wall* boundaries are used there.  The Nalu-Wind domain extends a few chord-lengths away from the wing, and terminates with an *overset* boundary on the exterior, and a *slip wall* on the portion that touches the bottom wind tunnel boundary.  The inner boundary of the Nalu-Wind domain represents the wing surface, and uses a *no-slip wall* boundary condition.
 
@@ -40,7 +40,7 @@ The structural deformations of the wing are modeled using the BeamDyn module of 
 
 **Grid Generation**
 
-<img src="figures/mesh_overview_100.png" border="0" alt=""/>
+![Mesh Overview](figures/mesh_overview_100.png)
 
 The Nalu-Wind grid was generated using Pointwise, and a cut-away view is shown in the left figure above.  The wing tip surface grid used an O-grid surrounding an H-grid, to which elliptic smoothing was applied.  The outer boundary of this wing tip grid was extruded to yield the complete surface mesh, shown in red above.  Finally, the volume mesh was created through hyperbolic extrusion of the surface mesh.  The grid for AMR-Wind was generated using its internal grid generator, and has one refinement region in the interior, centered around the wing.  This grid is shown in the right figure above.  Metrics for these grids are given in the table below.
 
@@ -109,7 +109,7 @@ For the results shown in this documentation, the same grid was used for all wind
 
    If the user wishes to reproduce the benchmark results, only `aoa` and `windspeed` need to be modified.
 
-7. Run the `setup.sh` script.  This will copy the simulation input files from `base` and substitute in the simulation parameters you added to the header using `aprepro`.  The resulting files will be placed in a directory titled `a#v#`, where the first number indicates the value of `aoa`, and the second indicates the value of `windspeed`.  This naming convention is chosen to facilitate parameter sweeps.
+7. Run the `setup.sh` script.  This will copy the simulation input files from `base` and substitute in the simulation parameters you added to the header using `aprepro`.  The resulting files will be placed in a directory titled `a#v#`, where the first number indicates the value of `aoa`, and the second indicates the value of `windspeed`.  This naming convention is chosen to facilitate parameter sweeps.  Note that this script relies on the *aprepro* preprocessor, which will be included in your exawind installation if your are using [Exawind-Manager](https://github.com/Exawind/exawind-manager).  However, if you are installing ExaWind some other way, and *aprepro* is unavailable, you can achieve the same result by manually copying the input files and editing the variables in accolades ({}), following the contents of the script.
 
 8. Navigate to the simulation directory you just created, and submit the slurm script.
 
@@ -143,7 +143,7 @@ For these simulations, 90% of the cores were allocated to Nalu-Wind, and the rem
 | Number of HPC Nodes   | 5                      |
 | Nalu Cells per CPU    | ~15,600                |
 
-The job was run on the Sandia Flight HPC cluster, which has the following specifications:
+The job time of 48 hours was selected for HPC queue reasons.  However, it was found that the 2 seconds of simulated time achieved after 48 hours of wall-clock time was sufficient to achieve steady state for the static deflection cases, as well as sufficient to observe the flutter behavior for the high-speed cases.  The job was run on the Sandia Flight HPC cluster, which has the following specifications:
 
 | Parameter           | Value |
 |---                  |---  |
@@ -155,13 +155,13 @@ The job was run on the Sandia Flight HPC cluster, which has the following specif
 
 **Static Deflection Results**
 
-<img src="figures/combined.png" border="0" alt=""/>
+![Static Deflection](figures/combined.png)
 
 For wind velocities below the flutter onset boundary, the wing deformation approaches a steady state after the initial oscillatory transients decay.  The final tip deflection is a function of the freestream velocity and the root angle of attack.  Comparison data is available for three angles of attack (3, 5 and 7 degrees), and wind speeds between 15 m/s and the flutter onset speed, which depends on the angle of attack.  For each AoA, comparisons are shown above.  The two black curves are experimental data from [1].  The solid black curve is from a sweep of dynamic pressure (while holding AoA constant), and the dashed black curve is from a sweep of AoA (while holding dynamic pressure constant).  The solid black line is used as the reference for comparison in [2], and we likewise treat it as the more reliable of the two experimental data sets.  The grey band indicates the spread in computational comparison data given in [2].
 
 **Flutter Results**
 
-<img src="figures/flut_figs_350.png" border="0" alt="" width="900"/>
+![Flutter](figures/flut_figs_350.png)
 
 For wind velocities above the flutter onset boundary, the wing deformation initially behaves in a similar way to the pre-flutter cases above.  However, the oscillatory transients do not decay, but instead continually grow until solver failure is reached.  The quantity of interest is the flutter onset velocity.  The results are shown in the left figure above.  The grey band indicates the set of AoA and wind speed values that produced flutter in the experiment [1].  The green range indicates the spread in predictions for the onset speed from the workshop [2].  The blue symbols indicate the results of ExaWind simulations that bracket the flutter onset boundary. The next section explains how these brackets should be interpreted.
 
